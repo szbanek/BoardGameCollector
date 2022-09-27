@@ -5,15 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#DF2F9E"
     tools:context=".GamesActivity">
+
 
     <TableLayout
         android:id="@+id/main_table"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ffffff"
+
         android:shrinkColumns="*"
-        android:stretchColumns="*">
+        android:stretchColumns="*"
+
+    android:background="#DF2F9E">
 
         <!-- Row 1 with single column -->
         <TableRow
@@ -25,11 +29,14 @@
                 android:layout_height="wrap_content"
                 android:layout_span="3"
                 android:layout_weight="1"
-                android:background="#b0b0b0"
+                android:background="@drawable/rounded"
+
                 android:padding="18dip"
                 android:text="DODATKI"
+
+                android:drawableRight="@drawable/extensions_icon"
                 android:textAlignment="center"
-                android:textColor="#000"
+                android:textColor="@color/white"
                 android:textSize="18sp" />
         </TableRow>
 
@@ -44,6 +51,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:text="nr"
+                android:background="@drawable/rounded"
+
                 android:textSize="8sp" />
 
             <Button
@@ -51,6 +60,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
+                android:background="@drawable/rounded"
+
                 android:textSize="8sp" />
 
             <Button
@@ -59,6 +70,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
                 android:onClick="namesClick"
+                android:background="@drawable/rounded"
+
                 android:text="nazwa"
                 android:textSize="8sp" />
 
@@ -69,6 +82,8 @@
                 android:layout_weight="2"
                 android:onClick="yearClick"
                 android:text="rok"
+                android:background="@drawable/rounded"
+
                 android:textSize="8sp" />
 
         </TableRow>
