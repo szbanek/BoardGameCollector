@@ -19,7 +19,7 @@ class LoginActivity : AppCompatActivity() {
 
     fun loginClick(v: View) {
         val name = findViewById<EditText>(R.id.editTextTextPersonName).text.toString()
-        val intent = Intent(this, SyncActivity::class.java)
+        val intent = Intent(this, SynchronizationActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
         intent.putExtra("name", name)
         startActivity(intent)

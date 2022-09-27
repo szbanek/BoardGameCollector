@@ -15,13 +15,13 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
-            android:name=".SyncActivity"
+            android:name=".SynchronizationActivity"
             android:exported="false" />
         <activity
             android:name=".RankActivity"
             android:exported="false" />
         <activity
-            android:name=".DLCsActivity"
+            android:name=".ExtensionsActivity"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"

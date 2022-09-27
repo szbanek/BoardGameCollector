@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.system.exitProcess
@@ -17,20 +16,20 @@ import kotlin.system.exitProcess
 class User{
     var name: String = ""
     var gamesNumber: Int = 0
-    var dlcNumber: Int = 0
+    var extensionNumber: Int = 0
     var lastSync: String = ""
 
-    constructor(name: String, gamesNumber: Int, dlcNumber: Int, lastSync: String){
+    constructor(name: String, gamesNumber: Int, extensionNumber: Int, lastSync: String){
         this.name = name
         this.gamesNumber = gamesNumber
-        this.dlcNumber = dlcNumber
+        this.extensionNumber = extensionNumber
         this.lastSync = lastSync
     }
 
-    constructor(name: String, gamesNumber: Int, dlcNumber: Int){
+    constructor(name: String, gamesNumber: Int, extensionNumber: Int){
         this.name = name
         this.gamesNumber = gamesNumber
-        this.dlcNumber = dlcNumber
+        this.extensionNumber = extensionNumber
         val sdf = SimpleDateFormat("yyyy/MM/dd hh:mm:ss")
         this.lastSync = sdf.format(Date())
     }
@@ -44,7 +43,7 @@ class UserDBHandler(context: Context, name: String?, factory: SQLiteDatabase.Cur
         val TABLE_USER = "user"
         val COLUMN_NAME = "name"
         val COLUMN_GAMESNUMBER = "gamesNumber"
-        val COLUMN_DLCNUMBER = "dlcNumber"
+        val COLUMN_EXTENSION_NUMBER = "extensionNumber"
         val COLUMN_LASTSYNC = "lastSync"
     }
 
@@ -52,7 +51,7 @@ class UserDBHandler(context: Context, name: String?, factory: SQLiteDatabase.Cur
         val CREATE_USER_TABLE = ("CREATE TABLE " + TABLE_USER + "(" +
                 COLUMN_NAME + " TEXT," +
                 COLUMN_GAMESNUMBER + " INTEGER," +
-                COLUMN_DLCNUMBER + " INTEGER," +
+                COLUMN_EXTENSION_NUMBER + " INTEGER," +
                 COLUMN_LASTSYNC + " TEXT" + ")")
         db.execSQL(CREATE_USER_TABLE)
     }
@@ -75,9 +74,9 @@ class UserDBHandler(context: Context, name: String?, factory: SQLiteDatabase.Cur
         if(cursor.moveToLast()){
             val name = cursor.getString(0)
             val gamesNumber = Integer.parseInt(cursor.getString(1))
-            val dlcNumber = Integer.parseInt(cursor.getString(2))
+            val extensionNumber = Integer.parseInt(cursor.getString(2))
             val lastSync = cursor.getString(3)
-            user = User(name, gamesNumber, dlcNumber, lastSync)
+            user = User(name, gamesNumber, extensionNumber, lastSync)
         }
         return user
     }
@@ -86,7 +85,7 @@ class UserDBHandler(context: Context, name: String?, factory: SQLiteDatabase.Cur
         val values = ContentValues()
         values.put(COLUMN_NAME, user.name)
         values.put(COLUMN_GAMESNUMBER, user.gamesNumber)
-        values.put(COLUMN_DLCNUMBER, user.dlcNumber)
+        values.put(COLUMN_EXTENSION_NUMBER, user.extensionNumber)
         values.put(COLUMN_LASTSYNC, user.lastSync)
         val db = this.writableDatabase
         db.insert(TABLE_USER, null, values)
@@ -122,14 +121,14 @@ class MainActivity : AppCompatActivity() {
     private fun refresh(){
         val userName: TextView by lazy {findViewById(R.id.userName)}
         val numberOfGames: TextView by lazy {findViewById(R.id.numberOfGames)}
-        val numberOfDLCs : TextView by lazy {findViewById(R.id.numberOfDLCs)}
+        val numberOfExtensions : TextView by lazy {findViewById(R.id.numberOfExtensions)}
         val lastSync: TextView by lazy {findViewById(R.id.lastSync)}
         val userDBHandler = UserDBHandler(this, null, null, 1)
         val user = userDBHandler.getUser()!!
 
         userName.text = "Username:\n" + user.name + "\n"
         numberOfGames.text = "Liczba posiadanych gier:\n " + user.gamesNumber.toString() + "\n"
-        numberOfDLCs.text = "Liczba posiadanych dodatków:\n " + user.dlcNumber.toString() + "\n"
+        numberOfExtensions.text = "Liczba posiadanych dodatków:\n " + user.extensionNumber.toString() + "\n"
         lastSync.text = "Ostatnia synchronizacja:\n " + user.lastSync + "\n"
     }
 
@@ -138,14 +137,14 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    fun dlcClick(v: View){
-        val intent = Intent(this, DLCsActivity::class.java)
+    fun extensionClick(v: View){
+        val intent = Intent(this, ExtensionsActivity::class.java)
         startActivity(intent)
     }
 
     fun syncClick(v: View){
         val user = UserDBHandler(this, null, null, 1).getUser()!!
-        val intent = Intent(this, SyncActivity::class.java)
+        val intent = Intent(this, SynchronizationActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
         intent.putExtra("name", user.name)
         intent.putExtra("lastSync", user.lastSync)
@@ -155,12 +154,12 @@ class MainActivity : AppCompatActivity() {
     fun delClick(v: View){
         val userDBHandler = UserDBHandler(this, null ,null, 1)
         val gamesDBHandler = GameDBHandler(this, null ,null, 1)
-        val dlcDBHandler = DlcDBHandler(this, null ,null, 1)
+        val extensionsDBHandler = ExtensionsDBHandler(this, null ,null, 1)
         gamesDBHandler.close()
-        dlcDBHandler.close()
+        extensionsDBHandler.close()
         userDBHandler.close()
         this.deleteDatabase("gamesDB.db")
-        this.deleteDatabase("dlcDB.db")
+        this.deleteDatabase("extensionDB.db")
         this.deleteDatabase("userDB.db")
         finish()
         exitProcess(0)

@@ -14,7 +14,7 @@ import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.*
 
-class SyncActivity : AppCompatActivity() {
+class SynchronizationActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,7 +54,7 @@ class SyncActivity : AppCompatActivity() {
             var data =
                 getData(URL("https://www.boardgamegeek.com/xmlapi2/collection?username=$name"))
             if (data.contains("<error")) {
-                val intent2 = Intent(this@SyncActivity, LoginActivity::class.java)
+                val intent2 = Intent(this@SynchronizationActivity, LoginActivity::class.java)
                 intent2.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
                 startActivity(intent2)
                 return
@@ -74,9 +74,9 @@ class SyncActivity : AppCompatActivity() {
                 }
             }
             var counter = 0
-            val userDbHandler = UserDBHandler(this@SyncActivity, null, null, 1)
-            val gameDBHandler = GameDBHandler(this@SyncActivity, null, null, 1)
-            val dlcDBHandler = DlcDBHandler(this@SyncActivity, null, null, 1)
+            val userDbHandler = UserDBHandler(this@SynchronizationActivity, null, null, 1)
+            val gameDBHandler = GameDBHandler(this@SynchronizationActivity, null, null, 1)
+            val extensionsDBHandler = ExtensionsDBHandler(this@SynchronizationActivity, null, null, 1)
             val tmpUser = User(name, 0, 0)
             for (gameID in gamesIdList) {
                 var gameName = ""
@@ -84,7 +84,7 @@ class SyncActivity : AppCompatActivity() {
                 var thumbnail = ""
                 var year = 0
                 var rank = 0
-                var dlc = false
+                var extension = false
 
                 data =
                     getData(URL("https://www.boardgamegeek.com/xmlapi2/thing?id=$gameID&stats=1"))
@@ -92,7 +92,7 @@ class SyncActivity : AppCompatActivity() {
                     val dataLine = data.substringBefore("\n")
                     data = data.substringAfter("\n")
                     if (dataLine.contains("<item type=\"boardgameexpansion\"")) {
-                        dlc = true
+                        extension = true
                     } else if (dataLine.contains("<thumbnail>")) {
                         thumbnail =
                             dataLine.substringAfter("<thumbnail>").substringBefore("</thumbnail>")
@@ -109,7 +109,7 @@ class SyncActivity : AppCompatActivity() {
                         }
                     }
                 }
-                if (!dlc) {
+                if (!extension) {
                     gameDBHandler.addGame(
                         Game(
                             gameID,
@@ -121,7 +121,7 @@ class SyncActivity : AppCompatActivity() {
                         ), tmpUser.lastSync
                     )
                 } else {
-                    dlcDBHandler.addDlc(Dlc(gameID, gameName, originalName, thumbnail, year))
+                    extensionsDBHandler.addExtension(Extension(gameID, gameName, originalName, thumbnail, year))
                 }
                 counter += 1
             }
@@ -129,11 +129,11 @@ class SyncActivity : AppCompatActivity() {
                 User(
                     tmpUser.name,
                     gameDBHandler.getGamesNumber(),
-                    dlcDBHandler.getDlcsNumber(),
+                    extensionsDBHandler.getExtensionsNumber(),
                     tmpUser.lastSync
                 )
             )
-            val intent = Intent(this@SyncActivity, MainActivity::class.java)
+            val intent = Intent(this@SynchronizationActivity, MainActivity::class.java)
             startActivity(intent)
         }
 
