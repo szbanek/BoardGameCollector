@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#DF2F9E"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -11,36 +12,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp">
-
-        <Button
-            android:id="@+id/games"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="gamesClick"
-            android:text="gry" />
-
-        <Button
-            android:id="@+id/dlc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="extensionClick"
-            android:text="dodatki" />
-
-        <Button
-            android:id="@+id/sync"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="syncClick"
-            android:text="synchronizacja" />
-
-        <Button
-            android:id="@+id/reset"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="delClick"
-            android:text="wyczyść dane" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/userName"
@@ -48,7 +23,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="TextView"
-            android:textSize="20sp" />
+            android:textColor="#FAF5F5"
+            android:textSize="34sp" />
 
         <TextView
             android:id="@+id/numberOfGames"
@@ -56,7 +32,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="TextView"
-            android:textSize="20sp" />
+            android:textColor="#F4F0F0"
+            android:textSize="34sp" />
 
         <TextView
             android:id="@+id/numberOfExtensions"
@@ -64,7 +41,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="TextView"
-            android:textSize="20sp" />
+            android:textColor="#FAF5F5"
+            android:textSize="34sp" />
 
         <TextView
             android:id="@+id/lastSync"
@@ -72,7 +50,40 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="TextView"
-            android:textSize="20sp" />
+            android:textColor="#FBF9F9"
+            android:textSize="34sp" />
+
+        <Button
+            android:id="@+id/games"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded"
+            android:onClick="gamesClick"
+            android:text="gry" />
+
+        <Button
+            android:id="@+id/dlc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded"
+            android:onClick="extensionClick"
+            android:text="dodatki" />
+
+        <Button
+            android:id="@+id/sync"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded"
+            android:onClick="syncClick"
+            android:text="synchronizacja" />
+
+        <Button
+            android:id="@+id/reset"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded"
+            android:onClick="delClick"
+            android:text="wyczyść dane" />
 
     </LinearLayout>
 
