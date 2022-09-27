@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".GamesActivity">
+
+    <TableLayout
+        android:id="@+id/main_table"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        android:shrinkColumns="*"
+        android:stretchColumns="*">
+
+        <!-- Row 1 with single column -->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_span="3"
+                android:layout_weight="1"
+                android:background="#b0b0b0"
+                android:padding="18dip"
+                android:text="GRY"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="18sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal">
+
+            <Button
+                android:id="@+id/button12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="nr"
+                android:textSize="8sp" />
+
+            <Button
+                android:id="@+id/button13"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:textSize="8sp" />
+
+            <Button
+                android:id="@+id/button14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:onClick="namesClick"
+                android:text="nazwa"
+                android:textSize="8sp" />
+
+            <Button
+                android:id="@+id/button17"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:onClick="yearClick"
+                android:text="rok"
+                android:textSize="8sp" />
+
+            <Button
+                android:id="@+id/button15"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:onClick="rankClick"
+                android:text="rank"
+                android:textSize="8sp" />
+
+        </TableRow>
+
+    </TableLayout>
+</ScrollView>
