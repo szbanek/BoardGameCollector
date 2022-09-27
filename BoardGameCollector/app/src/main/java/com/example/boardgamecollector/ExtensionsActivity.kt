@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
@@ -182,6 +183,7 @@ class ExtensionsActivity : AppCompatActivity() {
         val tbrow = TableRow(this)
         val textNumber = TextView(this)
         textNumber.text = (currentTable.size+1).toString()
+        textNumber.setTextColor(Color.WHITE)
         textNumber.gravity = Gravity.CENTER
         textNumber.textSize = 8f
         textNumber.layoutParams = param2
@@ -194,6 +196,7 @@ class ExtensionsActivity : AppCompatActivity() {
 
         val textName = TextView(this)
         textName.text = extension.originalName
+        textName.setTextColor(Color.WHITE)
         textName.gravity = Gravity.CENTER
         textName.textSize = 8f
         textName.layoutParams = param5
@@ -201,6 +204,7 @@ class ExtensionsActivity : AppCompatActivity() {
 
         val textYear = TextView(this)
         textYear.text = extension.year.toString()
+        textYear.setTextColor(Color.WHITE)
         textYear.gravity = Gravity.CENTER
         textYear.textSize = 8f
         textYear.layoutParams = param2

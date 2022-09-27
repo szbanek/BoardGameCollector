@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
@@ -248,6 +249,7 @@ class GamesActivity : AppCompatActivity() {
         val tbrow = TableRow(this)
         val textNumber = TextView(this)
         textNumber.text = (currentTable.size+1).toString()
+        textNumber.setTextColor(Color.WHITE)
         textNumber.gravity = Gravity.CENTER
         textNumber.textSize = 8f
         textNumber.layoutParams = param2
@@ -260,6 +262,7 @@ class GamesActivity : AppCompatActivity() {
 
         val textName = TextView(this)
         textName.text = game.originalName
+        textName.setTextColor(Color.WHITE)
         textName.gravity = Gravity.CENTER
         textName.textSize = 8f
         textName.layoutParams = param5
@@ -267,6 +270,7 @@ class GamesActivity : AppCompatActivity() {
 
         val textYear = TextView(this)
         textYear.text = game.year.toString()
+        textYear.setTextColor(Color.WHITE)
         textYear.gravity = Gravity.CENTER
         textYear.textSize = 8f
         textYear.layoutParams = param2
@@ -274,6 +278,7 @@ class GamesActivity : AppCompatActivity() {
 
         val textRank = TextView(this)
         textRank.text = game.rank.toString()
+        textRank.setTextColor(Color.WHITE)
         textRank.gravity = Gravity.CENTER
         textRank.textSize = 8f
         textRank.layoutParams = param2
