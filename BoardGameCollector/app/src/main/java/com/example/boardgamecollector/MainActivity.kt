@@ -19,19 +19,19 @@ class User{
     var extensionNumber: Int = 0
     var lastSync: String = ""
 
-    constructor(name: String, gamesNumber: Int, extensionNumber: Int, lastSync: String){
-        this.name = name
-        this.gamesNumber = gamesNumber
-        this.extensionNumber = extensionNumber
-        this.lastSync = lastSync
-    }
-
     constructor(name: String, gamesNumber: Int, extensionNumber: Int){
         this.name = name
         this.gamesNumber = gamesNumber
         this.extensionNumber = extensionNumber
         val sdf = SimpleDateFormat("yyyy/MM/dd hh:mm:ss")
         this.lastSync = sdf.format(Date())
+    }
+
+    constructor(name: String, gamesNumber: Int, extensionNumber: Int, lastSync: String){
+        this.name = name
+        this.gamesNumber = gamesNumber
+        this.extensionNumber = extensionNumber
+        this.lastSync = lastSync
     }
 }
 
@@ -61,9 +61,14 @@ class UserDBHandler(context: Context, name: String?, factory: SQLiteDatabase.Cur
         onCreate(db)
     }
 
-    fun delUser(){
+    fun newUser(user:User){
+        val values = ContentValues()
+        values.put(COLUMN_NAME, user.name)
+        values.put(COLUMN_GAMESNUMBER, user.gamesNumber)
+        values.put(COLUMN_EXTENSION_NUMBER, user.extensionNumber)
+        values.put(COLUMN_LASTSYNC, user.lastSync)
         val db = this.writableDatabase
-        db.execSQL("DELETE FROM " + TABLE_USER)
+        db.insert(TABLE_USER, null, values)
     }
 
     fun getUser(): User? {
@@ -79,16 +84,6 @@ class UserDBHandler(context: Context, name: String?, factory: SQLiteDatabase.Cur
             user = User(name, gamesNumber, extensionNumber, lastSync)
         }
         return user
-    }
-
-    fun newUser(user:User){
-        val values = ContentValues()
-        values.put(COLUMN_NAME, user.name)
-        values.put(COLUMN_GAMESNUMBER, user.gamesNumber)
-        values.put(COLUMN_EXTENSION_NUMBER, user.extensionNumber)
-        values.put(COLUMN_LASTSYNC, user.lastSync)
-        val db = this.writableDatabase
-        db.insert(TABLE_USER, null, values)
     }
 
 }
@@ -116,20 +111,6 @@ class MainActivity : AppCompatActivity() {
         else{
             refresh()
         }
-    }
-
-    private fun refresh(){
-        val userName: TextView by lazy {findViewById(R.id.userName)}
-        val numberOfGames: TextView by lazy {findViewById(R.id.numberOfGames)}
-        val numberOfExtensions : TextView by lazy {findViewById(R.id.numberOfExtensions)}
-        val lastSync: TextView by lazy {findViewById(R.id.lastSync)}
-        val userDBHandler = UserDBHandler(this, null, null, 1)
-        val user = userDBHandler.getUser()!!
-
-        userName.text = "Username:\n" + user.name + "\n"
-        numberOfGames.text = "Liczba posiadanych gier:\n " + user.gamesNumber.toString() + "\n"
-        numberOfExtensions.text = "Liczba posiadanych dodatków:\n " + user.extensionNumber.toString() + "\n"
-        lastSync.text = "Ostatnia synchronizacja:\n " + user.lastSync + "\n"
     }
 
     fun gamesClick(v: View){
@@ -163,5 +144,19 @@ class MainActivity : AppCompatActivity() {
         this.deleteDatabase("userDB.db")
         finish()
         exitProcess(0)
+    }
+
+    private fun refresh(){
+        val userName: TextView by lazy {findViewById(R.id.userName)}
+        val numberOfGames: TextView by lazy {findViewById(R.id.numberOfGames)}
+        val numberOfExtensions : TextView by lazy {findViewById(R.id.numberOfExtensions)}
+        val lastSync: TextView by lazy {findViewById(R.id.lastSync)}
+        val userDBHandler = UserDBHandler(this, null, null, 1)
+        val user = userDBHandler.getUser()!!
+
+        userName.text = "Username:\n" + user.name + "\n"
+        numberOfGames.text = "Liczba posiadanych gier:\n " + user.gamesNumber.toString() + "\n"
+        numberOfExtensions.text = "Liczba posiadanych dodatków:\n " + user.extensionNumber.toString() + "\n"
+        lastSync.text = "Ostatnia synchronizacja:\n " + user.lastSync + "\n"
     }
 }

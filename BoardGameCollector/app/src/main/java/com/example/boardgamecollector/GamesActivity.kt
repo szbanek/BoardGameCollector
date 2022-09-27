@@ -45,8 +45,7 @@ class Game {
     var year: Int = 0
     var rank: Int = 0
 
-    constructor(row:Int, id:Long, gameName: String, originalName: String, thumbnail: String, year:Int, rank: Int){
-        this.row = row
+    constructor(id:Long, gameName: String, originalName: String, thumbnail: String, year:Int, rank: Int){
         this.id = id
         this.gameName = gameName
         this.originalName = originalName
@@ -55,7 +54,8 @@ class Game {
         this.rank = rank
     }
 
-    constructor(id:Long, gameName: String, originalName: String, thumbnail: String, year:Int, rank: Int){
+    constructor(row:Int, id:Long, gameName: String, originalName: String, thumbnail: String, year:Int, rank: Int){
+        this.row = row
         this.id = id
         this.gameName = gameName
         this.originalName = originalName
@@ -97,23 +97,6 @@ class GameDBHandler(context: Context, name: String?, factory: SQLiteDatabase.Cur
     override fun onUpgrade(db: SQLiteDatabase, p1: Int, p2: Int) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_GAMES)
         onCreate(db)
-    }
-
-    fun delGames(){
-        val db = this.writableDatabase
-        db.execSQL("PRAGMA writable_schema = 1;")
-        db.execSQL("delete from sqlite_master where type in ('table', 'index', 'trigger');")
-        db.execSQL("PRAGMA writable_schema = 0;")
-        db.execSQL("VACUUM;")
-        val CREATE_GAMES_TABLE = ("CREATE TABLE " + TABLE_GAMES + "(" +
-                COLUMN_ROW + " INTEGER PRIMARY KEY," +
-                COLUMN_ID + " INTEGER," +
-                COLUMN_GAMENAME + " TEXT," +
-                COLUMN_ORIGINALNAME + " TEXT," +
-                COLUMN_THUMBNAIL + " TEXT," +
-                COLUMN_YEAR + " INTEGER," +
-                COLUMN_RANK + " INTEGER, UNIQUE($COLUMN_ID));")
-        db.execSQL(CREATE_GAMES_TABLE)
     }
 
     fun addGame(game: Game, date: String){
@@ -161,13 +144,6 @@ class GameDBHandler(context: Context, name: String?, factory: SQLiteDatabase.Cur
         return games
     }
 
-    fun getGamesNumber(): Int {
-        val db = this.writableDatabase
-        val cursor = db.rawQuery("SELECT COUNT(*) FROM " + TABLE_GAMES, null)
-        cursor.moveToFirst()
-        return Integer.parseInt(cursor.getString(0))
-    }
-
     fun findGame(id: Long): Game {
         val query = "SELECT * FROM $TABLE_GAMES WHERE $COLUMN_ID=$id"
         val db = this.writableDatabase
@@ -209,6 +185,13 @@ class GameDBHandler(context: Context, name: String?, factory: SQLiteDatabase.Cur
             rankings.add(Ranking(row, rank, date))
         }
         return rankings
+    }
+
+    fun getGamesNumber(): Int {
+        val db = this.writableDatabase
+        val cursor = db.rawQuery("SELECT COUNT(*) FROM " + TABLE_GAMES, null)
+        cursor.moveToFirst()
+        return Integer.parseInt(cursor.getString(0))
     }
 }
 

@@ -19,6 +19,20 @@ class Extension {
     var year: Int = 0
 
     constructor(
+        id: Long,
+        gameName: String,
+        originalName: String,
+        thumbnail: String,
+        year: Int
+    ) {
+        this.id = id
+        this.gameName = gameName
+        this.originalName = originalName
+        this.thumbnail = thumbnail
+        this.year = year
+    }
+
+    constructor(
         row: Int,
         id: Long,
         gameName: String,
@@ -34,19 +48,7 @@ class Extension {
         this.year = year
     }
 
-    constructor(
-        id: Long,
-        gameName: String,
-        originalName: String,
-        thumbnail: String,
-        year: Int
-    ) {
-        this.id = id
-        this.gameName = gameName
-        this.originalName = originalName
-        this.thumbnail = thumbnail
-        this.year = year
-    }
+
 }
 
 class ExtensionsDBHandler(context: Context, name: String?, factory: SQLiteDatabase.CursorFactory?, version: Int) :
