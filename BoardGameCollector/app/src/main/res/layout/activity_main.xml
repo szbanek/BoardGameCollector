@@ -7,84 +7,87 @@
     android:background="#DF2F9E"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        tools:layout_editor_absoluteX="112dp"
+        tools:layout_editor_absoluteY="0dp">
 
-        <TextView
-            android:id="@+id/userName"
+        <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="TextView"
-            android:textColor="#FAF5F5"
-            android:textSize="34sp" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/numberOfGames"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="TextView"
-            android:textColor="#F4F0F0"
-            android:textSize="34sp" />
+            <TextView
+                android:id="@+id/userName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="#FAF5F5"
+                android:textSize="34sp" />
 
-        <TextView
-            android:id="@+id/numberOfExtensions"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="TextView"
-            android:textColor="#FAF5F5"
-            android:textSize="34sp" />
+            <TextView
+                android:id="@+id/numberOfGames"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="#F4F0F0"
+                android:textSize="34sp" />
 
-        <TextView
-            android:id="@+id/lastSync"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="TextView"
-            android:textColor="#FBF9F9"
-            android:textSize="34sp" />
+            <TextView
+                android:id="@+id/numberOfExtensions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="#FAF5F5"
+                android:textSize="34sp" />
 
-        <Button
-            android:id="@+id/games"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/rounded"
-            android:onClick="gamesClick"
-            android:text="gry" />
+            <TextView
+                android:id="@+id/lastSync"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="#FBF9F9"
+                android:textSize="34sp" />
 
-        <Button
-            android:id="@+id/dlc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/rounded"
-            android:onClick="extensionClick"
-            android:text="dodatki" />
+            <Button
+                android:id="@+id/games"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded"
+                android:onClick="gamesClick"
+                android:text="gry" />
 
-        <Button
-            android:id="@+id/sync"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/rounded"
-            android:onClick="syncClick"
-            android:text="synchronizacja" />
+            <Button
+                android:id="@+id/dlc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded"
+                android:onClick="extensionClick"
+                android:text="dodatki" />
 
-        <Button
-            android:id="@+id/reset"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/rounded"
-            android:onClick="delClick"
-            android:text="wyczyść dane" />
+            <Button
+                android:id="@+id/sync"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded"
+                android:onClick="syncClick"
+                android:text="synchronizacja" />
 
-    </LinearLayout>
+            <Button
+                android:id="@+id/reset"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded"
+                android:onClick="delClick"
+                android:text="wyczyść dane" />
+
+        </LinearLayout>
+    </HorizontalScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
